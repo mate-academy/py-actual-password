@@ -9,20 +9,28 @@ since 'actual_password' is working with datetime.date.today()
 time per month, or rebuild the whole application.
 """
 
+from datetime import date, timedelta
 from app.main import actual_password
 
 
+today_test_date = date.today()
+
+
 def test_60_days_or_more():
-    assert actual_password(2021, 9, 5) == "Immediately change the password!"
+    test_date = today_test_date - timedelta(days=100)
+    assert actual_password(test_date.year, test_date.month, test_date.day) == "Immediately change the password!"
 
 
 def test_30_days_or_more():
-    assert actual_password(2022, 1, 2) == "You should change your password."
+    test_date = today_test_date - timedelta(days=40)
+    assert actual_password(test_date.year, test_date.month, test_date.day) == "You should change your password."
 
 
 def test_less_than_30_days():
-    assert actual_password(2022, 1, 10) == "Password is actual."
+    test_date = today_test_date - timedelta(days=10)
+    assert actual_password(test_date.year, test_date.month, test_date.day) == "Password is actual."
 
 
 def test_weird_date():
-    assert actual_password(1475, 1, 1) == "Immediately change the password!"
+    test_date = today_test_date - timedelta(days=10000)
+    assert actual_password(test_date.year, test_date.month, test_date.day) == "Immediately change the password!"
