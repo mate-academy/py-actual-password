@@ -6,7 +6,7 @@ from app.main import actual_password
 
 
 @pytest.mark.parametrize(
-    "days", [-100, 0, 15, 30],
+    "days", [0, 15, 30],
 )
 def test_should_check_if_have_passed_30_days_or_less(days):
     today = datetime.date.today()
